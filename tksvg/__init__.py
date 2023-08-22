@@ -40,7 +40,7 @@ class SvgImage(tk.PhotoImage):
     """
     _svg_options = [("scale", float), ("scaletowidth", int), ("scaletoheight", int)]
 
-    def __init__(self, name=None, cnf={}, master=None, **kwargs):
+    def __init__(self, name=None, cnf={}, master=None, svg_content=None, **kwargs):
         self._svg_options_current = dict()
         # Load TkSVG package if not yet loaded
         master = master or tk._default_root
@@ -53,6 +53,10 @@ class SvgImage(tk.PhotoImage):
         # Initialize as a PhotoImage
         tk.PhotoImage.__init__(self, name, cnf, master, **kwargs)
         self.configure(**svg_options)
+
+        # Set the SVG content if provided
+        if svg_content is not None:
+            self.tk.call(self.name, 'configure', '-data', svg_content)
 
     def configure(self, **kwargs):
         """Configure the image with SVG options and pass to PhotoImage.configure"""
