@@ -10,7 +10,7 @@ author = "The tksvg authors"
 url = "https://github.com/TkinterEP/tksvg"
 
 [tool.cibuildwheel]
-skip = ["cp36-*", "cp37-*"]
+skip = ["cp36-*", "cp37-*", "cp38-*"]
 
 [tool.cibuildwheel.linux]
 before-all = "yum install -y tcl-devel tk-devel"
