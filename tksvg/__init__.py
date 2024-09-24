@@ -3,29 +3,17 @@ Author: RedFantom
 License: GNU GPLv3
 Copyright (c) 2021 RedFantom
 """
-import contextlib
 import tkinter as tk
 import os
-
-
-@contextlib.contextmanager
-def chdir(target: str):
-    """Context-managed chdir, original implementation by GitHub @Akuli"""
-    current = os.getcwd()
-    try:
-        os.chdir(target)
-        yield
-    finally:
-        os.chdir(current)
-
 
 def load(window: tk.Tk):
     """Load tksvg into a Tk interpreter"""
     local = os.path.abspath(os.path.dirname(__file__))
-    with chdir(local):
-        window.tk.eval("source pkgIndex.tcl")
-        window.tk.eval("package require tksvg")
-        window._tksvg_loaded = True
+    window.tk.setvar("dir", local)
+    window.tk.eval("source [file join $dir pkgIndex.tcl]")
+    window.tk.eval("package require tksvg")
+    window.tk.unsetvar("dir")
+    window._tksvg_loaded = True
 
 
 class SvgImage(tk.PhotoImage):
