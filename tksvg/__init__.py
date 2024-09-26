@@ -49,12 +49,12 @@ class SvgImage(tk.PhotoImage):
         if kwargs:
             return tk.PhotoImage.configure(self, **kwargs)
 
-        options = ()
+        options = ""
         for key, value in svg_options.items():
             if value is not None:
-                options += (f"-{key}", str(value))
+                options += f"-{key} {value}"
 
-        self.tk.eval("%s configure -format {svg %s}" % (self.name, " ".join(options)))
+        self.tk.eval("%s configure -format {svg %s}" % (self.name, options))
 
     config = configure
 
