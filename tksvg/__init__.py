@@ -47,7 +47,7 @@ class SvgImage(tk.PhotoImage):
         """Configure the image with SVG options and pass to PhotoImage.configure"""
         svg_options = {key: kwargs.pop(key) for key in self.__svg_options if key in kwargs}
         if kwargs:
-            tk.PhotoImage.configure(self, **kwargs)
+            return tk.PhotoImage.configure(self, **kwargs)
 
         options = ()
         for key, value in svg_options.items():
